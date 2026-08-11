@@ -1,0 +1,75 @@
+[
+  {
+    "id": "tc_001",
+    "claim": "Pakistan is the 5th most populous country in the world",
+    "ground_truth": "TRUE",
+    "category": "statistical",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tc_002",
+    "claim": "The Eiffel Tower is located in Berlin and was built in 1887",
+    "ground_truth": "FALSE",
+    "category": "geographical",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tc_003",
+    "claim": "Albert Einstein failed mathematics in school",
+    "ground_truth": "FALSE",
+    "category": "biographical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tc_004",
+    "claim": "The Great Wall of China is visible from space with the naked eye",
+    "ground_truth": "FALSE",
+    "category": "scientific",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tc_005",
+    "claim": "Humans only use 10 percent of their brain",
+    "ground_truth": "FALSE",
+    "category": "scientific",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tc_006",
+    "claim": "Mount Everest is the tallest mountain on Earth measured from sea level",
+    "ground_truth": "TRUE",
+    "category": "geographical",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tc_007",
+    "claim": "The Amazon River is the longest river in the world",
+    "ground_truth": "PARTIALLY_TRUE",
+    "category": "geographical",
+    "difficulty": "hard",
+    "note": "Nile is traditionally considered longest but Amazon may be longer depending on measurement"
+  },
+  {
+    "id": "tc_008",
+    "claim": "Neil Armstrong was the first human to walk on the moon in 1969",
+    "ground_truth": "TRUE",
+    "category": "historical",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tc_009",
+    "claim": "Drinking 8 glasses of water per day is scientifically required for good health",
+    "ground_truth": "MISLEADING",
+    "category": "health",
+    "difficulty": "medium",
+    "note": "No scientific consensus on exactly 8 glasses — needs vary by person"
+  },
+  {
+    "id": "tc_010",
+    "claim": "Pakistan's Khewra Salt Mine is the largest salt mine in the world",
+    "ground_truth": "FALSE",
+    "category": "geographical",
+    "difficulty": "hard",
+    "note": "Khewra is second largest — Sifto Mine in Canada is largest"
+  }
+]

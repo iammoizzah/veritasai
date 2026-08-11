@@ -6,92 +6,97 @@ from dotenv import load_dotenv
 load_dotenv()
 client = anthropic.Anthropic()
 
-POLITICAL_BIAS_SPECTRUM = {
-    "far_left": ["jacobin", "counterpunch", "wsws.org"],
-    "left": ["msnbc", "vox", "huffpost", "guardian", "buzzfeed"],
-    "center_left": ["nytimes", "washingtonpost", "cnn", "bbc", "npr"],
-    "center": ["reuters", "apnews", "bloomberg", "axios"],
-    "center_right": ["wsj", "economist", "ft.com"],
-    "right": ["foxnews", "nypost", "breitbart"],
-    "far_right": ["infowars", "dailystormer", "gatewaypundit"]
+KNOWN_BIAS_DOMAINS = {
+    "foxnews.com": "right",
+    "breitbart.com": "far-right",
+    "msnbc.com": "left",
+    "motherjones.com": "left",
+    "huffpost.com": "left",
+    "theblaze.com": "far-right",
+    "bbc.com": "center",
+    "reuters.com": "center",
+    "apnews.com": "center",
+    "npr.org": "center-left",
+    "wsj.com": "center-right",
+    "nytimes.com": "center-left",
+    "washingtonpost.com": "center-left",
+    "theguardian.com": "center-left",
+    "economist.com": "center-right",
 }
 
 
-def detect_source_bias(url: str) -> str:
-    """Quick lookup for known source bias."""
-    url_lower = url.lower()
-    for bias_level, domains in POLITICAL_BIAS_SPECTRUM.items():
-        if any(d in url_lower for d in domains):
-            return bias_level
-    return "unknown"
+def get_domain_bias(url: str) -> str:
+    """Get known bias rating for a domain."""
+    try:
+        from urllib.parse import urlparse
+        domain = urlparse(url).netloc.replace("www.", "")
+        return KNOWN_BIAS_DOMAINS.get(domain, "unknown")
+    except Exception:
+        return "unknown"
 
 
 @traceable(name="bias_detector")
-def analyze_bias(claim: str, evidence_list: list[dict]) -> dict:
+def detect_bias(claim: str, evidence_list: list[dict]) -> dict:
     """
-    Detect framing bias, loaded language, and source diversity
-    across all evidence collected for a claim.
+    Analyze evidence sources for political/ideological bias.
+    Returns bias assessment and adjusted confidence.
     """
-    # Build source bias profile
+    # Check domain biases
     source_biases = []
     for e in evidence_list:
-        url = e.get("url", "")
-        bias = detect_source_bias(url)
-        source_biases.append({
-            "url": url,
-            "source_type": e.get("source", ""),
-            "detected_bias": bias
-        })
+        url = e.get("url", "") or e.get("key_source", "")
+        if url:
+            bias = get_domain_bias(url)
+            source_biases.append({"url": url, "bias": bias})
 
-    # Analyze content for framing bias
-    snippets = "\n\n".join([
-        f"Source: {e.get('url', e.get('source', ''))}\nContent: {e.get('snippet', '')[:300]}"
-        for e in evidence_list[:6]
+    bias_summary = "\n".join([
+        f"- {s['url'][:60]}: {s['bias']}" for s in source_biases if s["bias"] != "unknown"
+    ])
+
+    evidence_text = "\n".join([
+        f"[{i+1}] {e.get('sub_claim_text', e.get('title', ''))}: {e.get('verdict', e.get('snippet', ''))[:200]}"
+        for i, e in enumerate(evidence_list[:5])
     ])
 
     response = client.messages.create(
         model="claude-haiku-4-5",
-        max_tokens=800,
-        system="""You are a media bias analyst. Analyze evidence sources for framing bias,
-loaded language, and source diversity.
+        max_tokens=600,
+        system="""You are a media bias analyst. Assess whether the evidence used to verify
+a claim shows systematic bias that could affect the verdict.
 
 Return ONLY valid JSON:
 {
-  "overall_bias_risk": "low|medium|high",
-  "bias_types_detected": ["political_framing", "loaded_language", "omission_bias"],
-  "source_diversity_score": 0-100,
-  "dominant_narrative": "one sentence describing the dominant framing",
-  "alternative_perspectives_missing": ["perspective 1", "perspective 2"],
-  "loaded_language_examples": ["example phrase 1", "example phrase 2"],
-  "bias_warning": "one sentence warning if high bias detected, else empty string",
-  "recommendation": "how to get more balanced evidence"
+  "overall_bias_direction": "left|right|center|mixed|unknown",
+  "bias_severity": "none|low|moderate|high",
+  "bias_assessment": "2 sentences about the bias pattern in sources",
+  "confidence_adjustment": -20 to 0,
+  "diverse_sources": true|false,
+  "recommendation": "one sentence on how to improve source diversity"
 }""",
-        messages=[{"role": "user", "content": f"""Claim being verified: {claim}
+        messages=[{"role": "user", "content": f"""Claim: {claim}
 
-Evidence collected:
-{snippets}
+Source bias ratings:
+{bias_summary if bias_summary else "No known bias data for these sources"}
 
-Source bias profile:
-{json.dumps(source_biases, indent=2)}
+Evidence used:
+{evidence_text}
 
-Analyze for bias."""}]
+Assess bias in the evidence base."""}]
     )
 
     raw = response.content[0].text.strip().replace(
         "```json", "").replace("```", "").strip()
     try:
         result = json.loads(raw)
-        result["source_bias_breakdown"] = source_biases
+        result["source_biases"] = source_biases
         return result
     except Exception:
         return {
-            "overall_bias_risk": "unknown",
-            "bias_types_detected": [],
-            "source_diversity_score": 50,
-            "dominant_narrative": "Could not analyze bias",
-            "alternative_perspectives_missing": [],
-            "loaded_language_examples": [],
-            "bias_warning": "",
-            "recommendation": "Manually verify sources",
-            "source_bias_breakdown": source_biases
+            "overall_bias_direction": "unknown",
+            "bias_severity": "none",
+            "bias_assessment": "Could not assess bias.",
+            "confidence_adjustment": 0,
+            "diverse_sources": True,
+            "recommendation": "Use diverse sources for better coverage.",
+            "source_biases": source_biases
         }

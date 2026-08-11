@@ -1,0 +1,215 @@
+{
+  "timestamp": "2026-08-11T16:09:22.250565",
+  "total_claims": 10,
+  "exact_accuracy": 60.0,
+  "weighted_accuracy": 67.0,
+  "avg_ragas_score": 0.604,
+  "avg_processing_time": 19.68,
+  "total_time": 196.84,
+  "by_difficulty": {
+    "easy": {
+      "accuracy": 80.0,
+      "total": 5
+    },
+    "medium": {
+      "accuracy": 66.7,
+      "total": 3
+    },
+    "hard": {
+      "accuracy": 0.0,
+      "total": 2
+    }
+  },
+  "per_claim_results": [
+    {
+      "id": "tc_001",
+      "claim": "Pakistan is the 5th most populous country in the world",
+      "ground_truth": "TRUE",
+      "predicted": "FALSE",
+      "correct": false,
+      "score": 0.0,
+      "confidence": 95,
+      "ragas_scores": {
+        "faithfulness": 0.0,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "source_diversity": 0.0,
+        "overall_ragas": 0.3
+      },
+      "processing_time": 0.21,
+      "cache_hit": true,
+      "difficulty": "easy"
+    },
+    {
+      "id": "tc_002",
+      "claim": "The Eiffel Tower is located in Berlin and was built in 1887",
+      "ground_truth": "FALSE",
+      "predicted": "FALSE",
+      "correct": true,
+      "score": 1.0,
+      "confidence": 99,
+      "ragas_scores": {
+        "faithfulness": 0.0,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "source_diversity": 0.0,
+        "overall_ragas": 0.3
+      },
+      "processing_time": 0.02,
+      "cache_hit": true,
+      "difficulty": "easy"
+    },
+    {
+      "id": "tc_003",
+      "claim": "Albert Einstein failed mathematics in school",
+      "ground_truth": "FALSE",
+      "predicted": "FALSE",
+      "correct": true,
+      "score": 1.0,
+      "confidence": 82,
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "source_diversity": 1.0,
+        "overall_ragas": 0.8
+      },
+      "processing_time": 30.13,
+      "cache_hit": false,
+      "difficulty": "medium"
+    },
+    {
+      "id": "tc_004",
+      "claim": "The Great Wall of China is visible from space with the naked eye",
+      "ground_truth": "FALSE",
+      "predicted": "FALSE",
+      "correct": true,
+      "score": 1.0,
+      "confidence": 77,
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "source_diversity": 1.0,
+        "overall_ragas": 0.8
+      },
+      "processing_time": 32.18,
+      "cache_hit": false,
+      "difficulty": "medium"
+    },
+    {
+      "id": "tc_005",
+      "claim": "Humans only use 10 percent of their brain",
+      "ground_truth": "FALSE",
+      "predicted": "FALSE",
+      "correct": true,
+      "score": 1.0,
+      "confidence": 78,
+      "ragas_scores": {
+        "faithfulness": 0.0,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "source_diversity": 0.0,
+        "overall_ragas": 0.3
+      },
+      "processing_time": 0.01,
+      "cache_hit": true,
+      "difficulty": "easy"
+    },
+    {
+      "id": "tc_006",
+      "claim": "Mount Everest is the tallest mountain on Earth measured from sea level",
+      "ground_truth": "TRUE",
+      "predicted": "TRUE",
+      "correct": true,
+      "score": 1.0,
+      "confidence": 82,
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_precision": 0.33,
+        "source_diversity": 1.0,
+        "overall_ragas": 0.87
+      },
+      "processing_time": 30.6,
+      "cache_hit": false,
+      "difficulty": "easy"
+    },
+    {
+      "id": "tc_007",
+      "claim": "The Amazon River is the longest river in the world",
+      "ground_truth": "PARTIALLY_TRUE",
+      "predicted": "MISLEADING",
+      "correct": false,
+      "score": 0.4,
+      "confidence": 25,
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.75,
+        "context_precision": 0.33,
+        "source_diversity": 1.0,
+        "overall_ragas": 0.79
+      },
+      "processing_time": 32.59,
+      "cache_hit": false,
+      "difficulty": "hard"
+    },
+    {
+      "id": "tc_008",
+      "claim": "Neil Armstrong was the first human to walk on the moon in 1969",
+      "ground_truth": "TRUE",
+      "predicted": "TRUE",
+      "correct": true,
+      "score": 1.0,
+      "confidence": 95,
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_precision": 0.67,
+        "source_diversity": 1.0,
+        "overall_ragas": 0.93
+      },
+      "processing_time": 31.6,
+      "cache_hit": false,
+      "difficulty": "easy"
+    },
+    {
+      "id": "tc_009",
+      "claim": "Drinking 8 glasses of water per day is scientifically required for good health",
+      "ground_truth": "MISLEADING",
+      "predicted": "FALSE",
+      "correct": false,
+      "score": 0.3,
+      "confidence": 65,
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "source_diversity": 1.0,
+        "overall_ragas": 0.8
+      },
+      "processing_time": 39.48,
+      "cache_hit": false,
+      "difficulty": "medium"
+    },
+    {
+      "id": "tc_010",
+      "claim": "Pakistan's Khewra Salt Mine is the largest salt mine in the world",
+      "ground_truth": "FALSE",
+      "predicted": "UNVERIFIABLE",
+      "correct": false,
+      "score": 0.0,
+      "confidence": 5,
+      "ragas_scores": {
+        "faithfulness": 0.0,
+        "answer_relevance": 0.5,
+        "context_precision": 0.0,
+        "source_diversity": 0.0,
+        "overall_ragas": 0.15
+      },
+      "processing_time": 0.02,
+      "cache_hit": true,
+      "difficulty": "hard"
+    }
+  ]
+}
