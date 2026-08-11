@@ -1,4 +1,4 @@
-#  VeritasAI — Automated Claim Verification Pipeline
+# VeritasAI — Automated Claim Verification Pipeline
 
 An end-to-end AI fact-checking system that decomposes claims, retrieves evidence from live web and news sources, runs multi-agent verification, and synthesizes a structured verdict — with full LangSmith observability and RAGAS evaluation.
 
