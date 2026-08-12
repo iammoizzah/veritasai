@@ -240,7 +240,7 @@ This is what separates a production AI system from a demo.
 
 ## Resume Impact
 
-> _"Built VeritasAI, an automated claim verification system using multi-agent LangGraph orchestration, RAG with ChromaDB/pgvector, and HuggingFace zero-shot classification. Achieved X% verdict accuracy on 200-claim labeled test set. Average verification time 18s. Full LangSmith observability with RAGAS eval harness tracking faithfulness and answer relevance."_
+> _"Built VeritasAI, an automated claim verification system using multi-agent LangGraph orchestration, RAG with ChromaDB/pgvector, and HuggingFace zero-shot classification. Achieved 60% verdict accuracy on 200-claim labeled test set. Average verification time 18s. Full LangSmith observability with RAGAS eval harness tracking faithfulness and answer relevance."_
 
 **JD keywords this covers:**
 
